@@ -3,9 +3,11 @@ const fs = require("fs");
 const { v4: uuidv4 } = require("uuid");
 
 const server = http.createServer((req, res) => {
+    const url=req.url.split("/");
+
   if (req.url === "/") {
     res.end("<h1>Hello</h1>");
-  } else if (req.url === "/html") {
+  } else if (url[1] === "html") {
     fs.readFile("index.html", (err, data) => {
       if (err) {
         console.error(err);
@@ -13,7 +15,7 @@ const server = http.createServer((req, res) => {
         res.end(data);
       }
     });
-  } else if (req.url === "/json") {
+  } else if (url[1] === "json") {
     fs.readFile("index.json", (err, data) => {
       if (err) {
         console.error(err);
@@ -21,11 +23,13 @@ const server = http.createServer((req, res) => {
         res.end(data);
       }
     });
-  } else if (req.url === "/uuid") {
+  } else if (url[1] === "uuid") {
     const uuid=uuidv4();
     res.end(`{"uuid":"${uuid}"}`);
+  } else if (url[1] == `status`) {
+    res.end(`<h1>${http.STATUS_CODES[url[2]]}</h1>`);
   } else {
-    res.end("<h1>Page not found</h1>");
+    res.end(`<h1>Page not found ${req.url}</h1>`);
   }
 });
 
