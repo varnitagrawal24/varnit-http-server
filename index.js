@@ -27,7 +27,14 @@ const server = http.createServer((req, res) => {
     const uuid=uuidv4();
     res.end(`{"uuid":"${uuid}"}`);
   } else if (url[1] == `status`) {
+    res.statusCode=Number(url[2]);
     res.end(`<h1>${http.STATUS_CODES[url[2]]}</h1>`);
+  }else if (url[1] == `delay`) {
+    res.statusCode=200;
+    res.setTimeout(Number(url[2])*1000,()=>{
+        res.end(`<h1>OK</h1>`);
+    })
+    
   } else {
     res.end(`<h1>Page not found ${req.url}</h1>`);
   }
