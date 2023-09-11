@@ -12,6 +12,14 @@ const server = http.createServer((req, res) => {
         res.end(data);
       }
     });
+  } else if (req.url === "/json") {
+    fs.readFile("index.json", (err, data) => {
+      if (err) {
+        console.error(err);
+      } else {
+        res.end(data);
+      }
+    });
   } else {
     res.end("<h1>Page not found</h1>");
   }
