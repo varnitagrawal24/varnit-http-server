@@ -1,5 +1,6 @@
 const http = require("http");
 const fs = require("fs");
+const { v4: uuidv4 } = require("uuid");
 
 const server = http.createServer((req, res) => {
   if (req.url === "/") {
@@ -20,6 +21,9 @@ const server = http.createServer((req, res) => {
         res.end(data);
       }
     });
+  } else if (req.url === "/uuid") {
+    const uuid=uuidv4();
+    res.end(`{"uuid":"${uuid}"}`);
   } else {
     res.end("<h1>Page not found</h1>");
   }
