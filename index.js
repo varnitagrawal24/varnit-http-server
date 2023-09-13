@@ -34,6 +34,13 @@ app.get('/status/:status_code',(req,res)=>{
   res.status(statusCode).send(`status code: ${statusCode}`);
 })
 
+app.get('/delay/:delay_time',(req,res)=>{
+  const delayTime=Number(req.params.delay_time);
+  res.setTimeout(delayTime*1000,()=>{
+    res.send('ok')
+  })
+})
+
 app.listen(3000, () => {
   console.log("server is live on 3000....!!!");
 });
