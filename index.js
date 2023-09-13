@@ -22,6 +22,11 @@ app.get('/uuid',(req,res)=>{
   res.json({uuid:uuid})
 })
 
+app.get('/status/:status_code',(req,res)=>{
+  res.sendStatus(Number(req.params.status_code))
+  res.send(req.params);
+})
+
 app.listen(3000, () => {
   console.log("server is live on 3000....!!!");
 });
