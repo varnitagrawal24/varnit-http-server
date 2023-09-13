@@ -5,8 +5,15 @@ const path=require("path")
 
 const app=express();
 
+
 app.get('/',(req,res)=>{
-  res.send("<h1>hello</h1>")
+
+try {
+  res.status(200).send("<h1>hello</h1>")
+  
+} catch (error) {
+  res.status(404).send('Not Found')
+}
 })
 
 app.get('/html',(req,res)=>{
@@ -23,8 +30,8 @@ app.get('/uuid',(req,res)=>{
 })
 
 app.get('/status/:status_code',(req,res)=>{
-  res.sendStatus(Number(req.params.status_code))
-  res.send(req.params);
+  const statusCode=Number(req.params.status_code);
+  res.status(statusCode).send(`status code: ${statusCode}`);
 })
 
 app.listen(3000, () => {
