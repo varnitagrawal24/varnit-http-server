@@ -13,6 +13,10 @@ app.get('/html',(req,res)=>{
   res.sendFile(path.join(__dirname,"htmlFile.html"));
 })
 
+app.get('/json',(req,res)=>{
+  res.sendFile(path.join(__dirname,"index.json"));
+})
+
 app.listen(3000, () => {
   console.log("server is live on 3000....!!!");
 });
